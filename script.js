@@ -26,3 +26,6 @@ function getHumanChoice() {
     // return choice
     return choice;
 }
+
+let humanScore = 0;
+let computerScore = 0;
