@@ -27,54 +27,74 @@ function getHumanChoice() {
     return choice;
 }
 
-function playRound(humanChoice, computerChoice) {
-    let message = "";
-    if (humanChoice === "rock") {
-        if (computerChoice === "rock") {
-            message = "Draw, both chose Rock.";
+function playGame(numRounds) {
+    function playRound(humanChoice, computerChoice) {
+        let message = "";
+        if (humanChoice === "rock") {
+            if (computerChoice === "rock") {
+                message = "Draw, both chose Rock.";
+            }
+            else if (computerChoice === "paper") {
+                message = "You lose! Paper beats Rock";
+                computerScore++;
+            }
+            else if (computerChoice === "scissors") {
+                message = "You win! Rock beats Scissors";
+                humanScore++;
+            }
         }
-        else if (computerChoice === "paper") {
-            message = "You lose! Paper beats Rock";
-            computerScore++;
+        else if (humanChoice === "paper") {
+            if (computerChoice === "rock") {
+                message = "You win! Paper beats Rock";
+                humanScore++;
+            }
+            else if (computerChoice === "paper") {
+                message = "Draw, both chose Paper.";
+            }
+            else if (computerChoice === "scissors") {
+                message = "You lose! Scissors beats Paper";
+                computerScore++;
+            }
         }
-        else if (computerChoice === "scissors") {
-            message = "You win! Rock beats Scissors";
-            humanScore++;
+        else if (humanChoice === "scissors") {
+            if (computerChoice === "rock") {
+                message = "You lose! Rock beats Scissors";
+                computerScore++;
+            }
+            else if (computerChoice === "paper") {
+                message = "You win! Scissors beats Paper";
+                humanScore++;
+            }
+            else if (computerChoice === "scissors") {
+                message = "Draw, both chose Scissors.";
+            }
+        }
+        console.log(message);
+    }
+
+    function showResults(humanScore, computerScore) {
+        console.log(`Results | You: ${humanScore} | Computer: ${computerScore}`);
+        if (humanScore > computerScore) {
+            console.log("You win!");
+        }
+        else if (humanScore < computerScore) {
+            console.log("You lose!");
+        }
+        else {
+            console.log("Draw");
         }
     }
-    else if (humanChoice === "paper") {
-        if (computerChoice === "rock") {
-            message = "You win! Paper beats Rock";
-            humanScore++;
-        }
-        else if (computerChoice === "paper") {
-            message = "Draw, both chose Paper.";
-        }
-        else if (computerChoice === "scissors") {
-            message = "You lose! Scissors beats Paper";
-            computerScore++;
-        }
+
+    let humanScore = 0;
+    let computerScore = 0;
+
+    for (let i = 0; i < numRounds; i++) {
+        const humanSelection = getHumanChoice();
+        const computerSelection = getComputerChoice();
+        playRound(humanSelection, computerSelection);
     }
-    else if (humanChoice === "scissors") {
-        if (computerChoice === "rock") {
-            message = "You lose! Rock beats Scissors";
-            computerScore++;
-        }
-        else if (computerChoice === "paper") {
-            message = "You win! Scissors beats Paper";
-            humanScore++;
-        }
-        else if (computerChoice === "scissors") {
-            message = "Draw, both chose Scissors.";
-        }
-    }
-    console.log(message);
+
+    showResults(humanScore, computerScore);
 }
 
-let humanScore = 0;
-let computerScore = 0;
-
-
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
-playRound(humanSelection, computerSelection);
+playGame(5);
