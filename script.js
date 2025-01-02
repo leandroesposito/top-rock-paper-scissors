@@ -21,8 +21,9 @@ function getHumanChoice() {
 }
 
 
-function playRound(humanChoice, computerChoice) {
+function generateResult(humanChoice, computerChoice) {
     let message = "";
+
     if (humanChoice === "rock") {
         if (computerChoice === "rock") {
             message = "Draw, both chose Rock.";
@@ -62,7 +63,8 @@ function playRound(humanChoice, computerChoice) {
             message = "Draw, both chose Scissors.";
         }
     }
-    console.log(message);
+
+    return message;
 }
 
 function showResults(humanScore, computerScore) {
@@ -88,15 +90,22 @@ elementsContainer.addEventListener("click", (event) => {
         return;
     }
 
-    playRound(event.target.id, getComputerChoice());
-    showResults(humanScore, computerScore);
+    playRound(event.target.id);
 });
 
+function playRound(humanChoice) {
+    let matchResult = generateResult(humanChoice, getComputerChoice());
+    showResult(matchResult);
+}
+
+function showResult(matchResult) {
+    const currentMatchResultContainer = document.querySelector(".current-match-result-container");
+
+    currentMatchResultContainer.textContent = matchResult;
+}
 
 /*
 TODO
-
-Add a div for displaying results and change all of your console.logs into DOM methods.
 
 Display the running score, and announce a winner of the game once one player reaches 5 points.
 
