@@ -96,5 +96,3 @@ function playGame(numRounds) {
 
     showResults(humanScore, computerScore);
 }
-
-playGame(5);
