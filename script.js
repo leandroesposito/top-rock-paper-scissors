@@ -83,6 +83,7 @@ function showResults(humanScore, computerScore) {
 let humanScore = 0;
 let computerScore = 0;
 
+const winnerAnnounceContainer = document.querySelector(".winner-announce-container");
 const elementsContainer = document.querySelector(".elements-container");
 
 elementsContainer.addEventListener("click", (event) => {
@@ -98,6 +99,13 @@ function playRound(humanChoice) {
     showResult(matchResult);
     addResultToHistory(matchResult);
     showScores();
+
+    if (humanScore === 5) {
+        annouceWinner("You");
+    }
+    else if (computerScore === 5) {
+        annouceWinner("Computer");
+    }
 }
 
 function showResult(matchResult) {
@@ -121,11 +129,6 @@ function showScores() {
     scoresContainer.textContent = `You: ${humanScore} | Computer ${computerScore}`;
 }
 
-
-/*
-TODO
-
-announce a winner of the game once one player reaches 5 points.
-
-You will likely have to refactor (rework/rewrite) your original code to make it work for this. That’s OK! Reworking old code is an important part of a programmer’s life.
-*/
+function annouceWinner(winner) {
+    winnerAnnounceContainer.textContent = `${winner}'ve won the game by reaching 5 points`;
+}
