@@ -1,0 +1,37 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.body {
+    padding: 10px;
+    max-width: fit-content;
+}
+
+div {
+    border: 2px solid black;
+    margin: 10px;
+}
+
+.label {
+    text-align: center;
+}
+
+.label.title {
+    padding: 0 20px;
+}
+
+div:empty {
+    display: none
+}
+
+.elements-container {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
