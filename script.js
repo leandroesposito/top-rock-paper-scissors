@@ -96,6 +96,7 @@ elementsContainer.addEventListener("click", (event) => {
 function playRound(humanChoice) {
     let matchResult = generateResult(humanChoice, getComputerChoice());
     showResult(matchResult);
+    addResultToHistory(matchResult);
 }
 
 function showResult(matchResult) {
@@ -103,6 +104,16 @@ function showResult(matchResult) {
 
     currentMatchResultContainer.textContent = matchResult;
 }
+
+function addResultToHistory(matchResult) {
+    const matchesHistoryContainer = document.querySelector(".matches-history-container");
+
+    const newResultDiv = document.createElement("div");
+    newResultDiv.textContent = matchResult;
+
+    matchesHistoryContainer.insertBefore(newResultDiv, matchesHistoryContainer.children[0]);
+}
+
 
 /*
 TODO
