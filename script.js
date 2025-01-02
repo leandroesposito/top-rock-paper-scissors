@@ -83,6 +83,9 @@ function showResults(humanScore, computerScore) {
 let humanScore = 0;
 let computerScore = 0;
 
+const currentMatchResultContainer = document.querySelector(".current-match-result-container");
+const matchesHistoryContainer = document.querySelector(".matches-history-container");
+const scoresContainer = document.querySelector(".scores-container");
 const winnerAnnounceContainer = document.querySelector(".winner-announce-container");
 const elementsContainer = document.querySelector(".elements-container");
 
@@ -95,6 +98,10 @@ elementsContainer.addEventListener("click", (event) => {
 });
 
 function playRound(humanChoice) {
+    if (humanScore === 5 || computerScore === 5) {
+        resetGame();
+    }
+
     let matchResult = generateResult(humanChoice, getComputerChoice());
     showResult(matchResult);
     addResultToHistory(matchResult);
@@ -109,14 +116,10 @@ function playRound(humanChoice) {
 }
 
 function showResult(matchResult) {
-    const currentMatchResultContainer = document.querySelector(".current-match-result-container");
-
     currentMatchResultContainer.textContent = matchResult;
 }
 
 function addResultToHistory(matchResult) {
-    const matchesHistoryContainer = document.querySelector(".matches-history-container");
-
     const newResultDiv = document.createElement("div");
     newResultDiv.textContent = matchResult;
 
@@ -124,11 +127,19 @@ function addResultToHistory(matchResult) {
 }
 
 function showScores() {
-    const scoresContainer = document.querySelector(".scores-container");
-
     scoresContainer.textContent = `You: ${humanScore} | Computer ${computerScore}`;
 }
 
 function annouceWinner(winner) {
     winnerAnnounceContainer.textContent = `${winner}'ve won the game by reaching 5 points`;
+}
+
+function resetGame() {
+    currentMatchResultContainer.textContent = "";
+    matchesHistoryContainer.textContent = "";
+    scoresContainer.textContent = "";
+    winnerAnnounceContainer.textContent = "";
+
+    humanScore = 0;
+    computerScore = 0;
 }
