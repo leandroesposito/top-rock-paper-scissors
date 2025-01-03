@@ -117,21 +117,41 @@ function playRound(humanChoice) {
 
 function showResult(matchResult) {
     currentMatchResultContainer.textContent = matchResult;
+
+    clearClassesExceptOriginal(currentMatchResultContainer);
+
+    const resultClass = getUserResultClass(matchResult);
+    currentMatchResultContainer.classList.add(resultClass);
 }
 
 function addResultToHistory(matchResult) {
     const newResultDiv = document.createElement("div");
     newResultDiv.textContent = matchResult;
 
+    const resultClass = getUserResultClass(matchResult);
+    newResultDiv.classList.add(resultClass);
+
     matchesHistoryContainer.insertBefore(newResultDiv, matchesHistoryContainer.children[0]);
 }
 
 function showScores() {
     scoresContainer.textContent = `You: ${humanScore} | Computer ${computerScore}`;
+
+    clearClassesExceptOriginal(scoresContainer);
+    scoresContainer.classList.add(getUserScoreClass());
 }
 
 function annouceWinner(winner) {
     winnerAnnounceContainer.textContent = `${winner}'ve won the game by reaching 5 points`;
+
+    clearClassesExceptOriginal(winnerAnnounceContainer);
+    winnerAnnounceContainer.classList.add(getUserScoreClass());
+}
+
+function clearClassesExceptOriginal(element) {
+    const originalClass = element.classList[0];
+    element.className = '';
+    element.classList.add(originalClass);
 }
 
 function resetGame() {
@@ -142,4 +162,24 @@ function resetGame() {
 
     humanScore = 0;
     computerScore = 0;
+}
+
+function getUserResultClass(matchResult) {
+    if (matchResult.includes("win")) {
+        return "win";
+    } else if (matchResult.includes("lose")) {
+        return "lose";
+    } else {
+        return "draw";
+    }
+}
+
+function getUserScoreClass() {
+    if (humanScore > computerScore) {
+        return "win";
+    } else if (humanScore < computerScore) {
+        return "lose";
+    } else {
+        return "draw";
+    }
 }
